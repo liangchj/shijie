@@ -21,6 +21,7 @@ class ResourceCategoryPage extends StatefulWidget {
 }
 
 class _ResourceCategoryPageState extends State<ResourceCategoryPage> {
+  double itemAspectRatio = 12 / 16;
   double get bodyHorizontalPadding => widget.bodyHorizontalPadding!;
   double get bodyVerticalPadding => widget.bodyVerticalPadding!;
   int get horizontalShowItemNum => widget.horizontalShowItemNum!;
@@ -28,6 +29,7 @@ class _ResourceCategoryPageState extends State<ResourceCategoryPage> {
   final ConditionListController _conditionListController = Get.put(ConditionListController());
   @override
   void setState(VoidCallback fn) {
+    // _conditionListController = Get.put(ConditionListController());
     super.setState(fn);
   }
 
@@ -42,19 +44,15 @@ class _ResourceCategoryPageState extends State<ResourceCategoryPage> {
     /// 单个资源宽度
     double singleItemWidth = horizontalItemTotalWidth / horizontalShowItemNum;
     List<Widget> fList = [
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 1), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 2), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 3), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
-      ResourceItem(resourceModel: ResourceModel("dd", "f", 8.0, 4), width: singleItemWidth),
+      ResourceItem(resourceModel:ResourceModel(name: "测试名称很长会怎么显示", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: 12 / 16,),
+      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+
     ];
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +62,56 @@ class _ResourceCategoryPageState extends State<ResourceCategoryPage> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.search))
         ],
       ),
-      body: Container(
+      body: Obx(() {
+          if (_conditionListController.loading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: bodyVerticalPadding, horizontal: bodyHorizontalPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 资源下条件类型
+                ConditionList(verticalPadding: 8.0,),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
+                // 资源列表
+                Expanded(child: GridView.builder(
+                  shrinkWrap:true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisSpacing: bodyHorizontalPadding,
+                    crossAxisCount: horizontalShowItemNum, //每行三列
+                    mainAxisExtent: (singleItemWidth / itemAspectRatio) + 32,
+                    // childAspectRatio: 12 / 19, //显示区域宽高相等
+                  ),
+                  itemCount: _conditionListController.resourceModelList.length,
+                  itemBuilder: (context, index) {
+                    return ResourceItem(resourceModel: _conditionListController.resourceModelList[index], width: singleItemWidth, aspectRatio: itemAspectRatio);
+                  },
+                ))
+                /*Expanded(child: SingleChildScrollView(
+                  *//*child: Obx(() => Wrap(
+                    spacing: bodyHorizontalPadding, // 主轴(水平)方向间距
+                    runSpacing: bodyVerticalPadding, // 纵轴（垂直）方向间距
+                    alignment: WrapAlignment.spaceBetween, //沿主轴方向
+                    children: _conditionListController.resourceModelList.map((e) {
+                      return ResourceItem(resourceModel:e, width: singleItemWidth);
+                    }).toList(),
+                  )),*//*
+                  child: Wrap(
+                    spacing: bodyHorizontalPadding, // 主轴(水平)方向间距
+                    runSpacing: bodyVerticalPadding, // 纵轴（垂直）方向间距
+                    alignment: WrapAlignment.spaceBetween, //沿主轴方向
+                    children: fList.map((e) => e).toList(),
+                  ),
+                ))*/
+              ],
+            ),
+          );
+        },
+      ),
+      /*body: Container(
         padding: EdgeInsets.symmetric(vertical: bodyVerticalPadding, horizontal: bodyHorizontalPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +130,7 @@ class _ResourceCategoryPageState extends State<ResourceCategoryPage> {
             ))
           ],
         ),
-      ),
+      ),*/
     );
   }
 }

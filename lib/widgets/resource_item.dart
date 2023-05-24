@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:shijie/model/resource_model.dart';
 
 class ResourceItem extends StatelessWidget {
-  const ResourceItem({Key? key, required this.resourceModel, this.aspectRatio, required this.width}) : super(key: key);
+  const ResourceItem({Key? key, required this.resourceModel, required this.aspectRatio, required this.width}) : super(key: key);
   final ResourceModel resourceModel;
-  final double? aspectRatio;
+  final double aspectRatio;
   final double width;
 
   @override
@@ -17,7 +17,7 @@ class ResourceItem extends StatelessWidget {
         children: [
           // 缩略图
           AspectRatio(
-            aspectRatio: aspectRatio ?? 12 / 16,
+            aspectRatio: aspectRatio,
             child: Stack(
               children: [
                 const Image(
@@ -47,8 +47,11 @@ class ResourceItem extends StatelessWidget {
               ],
             ),
           ),
+
           // 名称
-          Text(resourceModel.name, textAlign: TextAlign.start,)
+          Container(
+              margin: const EdgeInsets.only(top: 4.0),
+              child: Text(resourceModel.name, textAlign: TextAlign.start, overflow: TextOverflow.ellipsis,))
         ],
       ),
     );

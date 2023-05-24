@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shijie/http/dao/recommend_dao.dart';
 import 'package:shijie/pages/resource_category_page.dart';
 
 void main() {
@@ -63,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     Get.to(ResourceCategoryPage());
+    // RecommendDao.get();
   }
 
   @override

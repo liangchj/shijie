@@ -31,11 +31,15 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # 组件化配置
+  lchj_net:
+    path: ./components/lchj_net
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.6.5
+  logger: ^1.3.0
 
 dev_dependencies:
   flutter_test:
