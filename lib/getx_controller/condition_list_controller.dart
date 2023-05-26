@@ -26,12 +26,14 @@ class ConditionListController extends GetxController {
 
       var result = await RecommendDao.loadSource();
       // String code = (result["code"] ?? "").toString();
+      print("list type: ");
+      print(result["list"].runtimeType);
       List<dynamic> listJson = result["list"];
       List<dynamic> typeListJson = result["class"];
 
       if (listJson.isNotEmpty) {
         for (dynamic map in listJson) {
-          resourceModelList.add(ResourceModel(name: map["vod_name"] ?? "", type: map["type_name"] ?? "", score:  0, number:  0));
+          resourceModelList.add(ResourceModel(id: 1,name: map["vod_name"] ?? "", type: map["type_name"] ?? "", score:  0, number:  0));
           print(resourceModelList);
         }
       }

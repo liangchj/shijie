@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shijie/http/dao/recommend_dao.dart';
+import 'package:shijie/pages/net_resource_home_page.dart';
 import 'package:shijie/pages/resource_category_page.dart';
+import 'package:shijie/route/app_pages.dart';
+import 'package:shijie/route/app_routes.dart';
 
 void main() {
-  runApp(const GetMaterialApp(
-    home: MyApp(),
+  runApp(GetMaterialApp(
+    getPages: AppPages.pages,
+    home: const MyApp(),
   ));
 }
 
@@ -63,7 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    Get.to(ResourceCategoryPage());
+    Get.toNamed(AppRoutes.netResourceHomePage);
+    // Get.to(ResourceCategoryPage());
     // RecommendDao.get();
   }
 

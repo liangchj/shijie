@@ -44,14 +44,14 @@ class _ResourceCategoryPageState extends State<ResourceCategoryPage> {
     /// 单个资源宽度
     double singleItemWidth = horizontalItemTotalWidth / horizontalShowItemNum;
     List<Widget> fList = [
-      ResourceItem(resourceModel:ResourceModel(name: "测试名称很长会怎么显示", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: 12 / 16,),
-      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
-      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
-      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
-      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
-      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
-      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
-      ResourceItem(resourceModel:ResourceModel(name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(id: 1, name: "测试名称很长会怎么显示", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: 12 / 16,),
+      ResourceItem(resourceModel:ResourceModel(id: 1, name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(id: 1, name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(id: 1, name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(id: 1, name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(id: 1, name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(id: 1, name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
+      ResourceItem(resourceModel:ResourceModel(id: 1, name: "name", type: "type", score: 8.0, number: 2), width: singleItemWidth, aspectRatio: itemAspectRatio),
 
     ];
     return Scaffold(
