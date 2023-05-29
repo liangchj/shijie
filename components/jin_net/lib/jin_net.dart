@@ -13,15 +13,15 @@ import 'package:logger/logger.dart';
 /// 2.基于配置请求请求，简洁易用
 /// 3.Adapter设计，扩展性强
 /// 4.统一异常和返回处理
-class LchjNet {
-  LchjNet._();
+class JinNet {
+  JinNet._();
   Logger logger = Logger();
 
   ErrorInterceptor? _errorInterceptor;
-  static LchjNet? _instance;
+  static JinNet? _instance;
 
-  static LchjNet getInstance() {
-    _instance ??= LchjNet._();
+  static JinNet getInstance() {
+    _instance ??= JinNet._();
     return _instance!;
   }
 

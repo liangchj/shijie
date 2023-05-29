@@ -1,17 +1,17 @@
 
 
-import 'package:lchj_net/lchj_net.dart';
+import 'package:lchj_net/jin_net.dart';
 import 'package:shijie/http/request/recommend_resource_request.dart';
 
 class RecommendDao {
   static get() async {
     RecommendResourceRequest request = RecommendResourceRequest();
-    var result = await LchjNet.getInstance().fire(request);
+    var result = await JinNet.getInstance().fire(request);
     print(result);
   }
 
   static loadSource() {
     RecommendResourceRequest request = RecommendResourceRequest();
-    return LchjNet.getInstance().fire(request);
+    return JinNet.getInstance().fire(request);
   }
 }

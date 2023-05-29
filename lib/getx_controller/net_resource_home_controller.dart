@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lchj_net/lchj_net.dart';
+import 'package:lchj_net/jin_net.dart';
 import 'package:shijie/http/request/net_resource_home_request.dart';
 import 'package:shijie/model/resource_category_type_model.dart';
 import 'package:shijie/model/resource_model.dart';
@@ -90,7 +90,7 @@ class NetResourceHomeController extends GetxController with GetSingleTickerProvi
   loadNetResource() async {
     try {
       loading(true);
-    var result = await LchjNet.getInstance().fire(request!);
+    var result = await JinNet.getInstance().fire(request!);
     print("======结果START======");
     List<dynamic> categoryTypeListJson = result[NetUrlConfig.currentUseNetUrl?.resourceCategoryTypeKey];
     if (categoryTypeListJson.isNotEmpty) {
