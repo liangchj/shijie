@@ -1,8 +1,9 @@
 
 
-import 'package:lchj_net/request/net_request.dart';
 
-abstract class BaseRequest extends NetRequest {
+import 'package:jin_net/request/jin_net_request.dart';
+
+abstract class BaseRequest extends JinNetRequest {
   @override
   String url() {
     if (needLogin()) {

@@ -1,15 +1,16 @@
 import 'dart:convert';
 
-import 'package:lchj_net/request/net_request.dart';
+import 'package:jin_net/request/jin_net_request.dart';
+
 
 ///网络请求抽象类
-abstract class NetAdapter {
-  Future<NetResponse<T>> send<T>(NetRequest request);
+abstract class JinNetAdapter {
+  Future<JinNetResponse<T>> send<T>(JinNetRequest request);
 }
 
 /// 统一网络层返回格式
-class NetResponse<T> {
-  NetResponse({
+class JinNetResponse<T> {
+  JinNetResponse({
     this.data,
     required this.request,
     this.statusCode,
@@ -21,7 +22,7 @@ class NetResponse<T> {
   T? data;
 
   /// The corresponding request info.
-  NetRequest request;
+  JinNetRequest request;
 
   /// Http status code.
   int? statusCode;

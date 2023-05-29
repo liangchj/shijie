@@ -1,4 +1,3 @@
-import 'package:lchj_net/request/net_request.dart';
 
 abstract class NetUrlKey {
   /// url名称

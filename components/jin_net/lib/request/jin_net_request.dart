@@ -1,9 +1,9 @@
-// ignore: constant_identifier_names
+
 import 'package:logger/logger.dart';
 
 enum HttpMethod { GET, POST, DELETE }
 /// 基础请求
-abstract class NetRequest {
+abstract class JinNetRequest {
   /// 链接上需要拼接的参数
   String? pathParams;
   bool useHttps = false;
@@ -42,7 +42,7 @@ abstract class NetRequest {
   Map<String, String> params = {};
 
   ///添加参数
-  NetRequest add(String k, Object v) {
+  JinNetRequest add(String k, Object v) {
     params[k] = v.toString();
     return this;
   }
@@ -50,7 +50,7 @@ abstract class NetRequest {
   Map<String, dynamic> header = {};
 
   ///添加header
-  NetRequest addHeader(String k, Object v) {
+  JinNetRequest addHeader(String k, Object v) {
     header[k] = v.toString();
     return this;
   }

@@ -1,8 +1,9 @@
 
 
-import 'package:lchj_net/request/net_request.dart';
 
-class RecommendResourceRequest extends NetRequest {
+import 'package:jin_net/request/jin_net_request.dart';
+
+class RecommendResourceRequest extends JinNetRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;

@@ -1,6 +1,6 @@
 
 
-import 'package:lchj_net/jin_net.dart';
+import 'package:jin_net/jin_net.dart';
 import 'package:shijie/http/request/recommend_resource_request.dart';
 
 class RecommendDao {

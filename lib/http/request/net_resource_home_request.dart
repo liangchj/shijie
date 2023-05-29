@@ -1,8 +1,8 @@
 
-import 'package:lchj_net/request/net_request.dart';
+import 'package:jin_net/request/jin_net_request.dart';
 import 'package:shijie/net_api/net_url.dart';
 
-class NetResourceHomeRequest extends NetRequest {
+class NetResourceHomeRequest extends JinNetRequest {
   final UrlRequestData urlRequestData;
 
   NetResourceHomeRequest(this.urlRequestData) {

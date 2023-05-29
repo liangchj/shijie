@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:lchj_net/core/net_adapter.dart';
-import 'package:lchj_net/core/net_error.dart';
-import 'package:lchj_net/request/net_request.dart';
+import 'package:jin_net/core/jin_error.dart';
+import 'package:jin_net/core/jin_net_adapter.dart';
+import 'package:jin_net/request/jin_net_request.dart';
 
 ///Dio适配器
-class DioAdapter extends NetAdapter {
+class DioAdapter extends JinNetAdapter {
   @override
-  Future<NetResponse<T>> send<T>(NetRequest request) async {
+  Future<JinNetResponse<T>> send<T>(JinNetRequest request) async {
     var response, options = Options(headers: request.header);
     try {
       if (request.httpMethod() == HttpMethod.GET) {
@@ -21,7 +21,7 @@ class DioAdapter extends NetAdapter {
     } on DioError catch (e) {
       response = e.response;
       /// 抛出NetError
-      throw NetError(response?.statusCode ?? -1, e.toString(),
+      throw JinNetError(response?.statusCode ?? -1, e.toString(),
           data: await buildRes(e.response, request));
     }
 
@@ -29,9 +29,9 @@ class DioAdapter extends NetAdapter {
   }
 
   ///构建HiNetResponse
-  Future<NetResponse<T>> buildRes<T>(
-      Response? response, NetRequest request) {
-    return Future.value(NetResponse(
+  Future<JinNetResponse<T>> buildRes<T>(
+      Response? response, JinNetRequest request) {
+    return Future.value(JinNetResponse(
       //?.防止response为空
         data: response?.data,
         request: request,

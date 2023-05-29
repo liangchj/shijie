@@ -2,11 +2,12 @@ library lchj_net;
 
 import 'dart:convert';
 
-import 'package:lchj_net/core/dio_adapter.dart';
-import 'package:lchj_net/core/error_interceptor.dart';
-import 'package:lchj_net/core/net_adapter.dart';
-import 'package:lchj_net/core/net_error.dart';
-import 'package:lchj_net/request/net_request.dart';
+
+import 'package:jin_net/core/dio_adapter.dart';
+import 'package:jin_net/core/jin_error.dart';
+import 'package:jin_net/core/jin_interceptor.dart';
+import 'package:jin_net/core/jin_net_adapter.dart';
+import 'package:jin_net/request/jin_net_request.dart';
 import 'package:logger/logger.dart';
 
 /// 1.支持网络库插拔设计，且不干扰业务层
@@ -25,12 +26,12 @@ class JinNet {
     return _instance!;
   }
 
-  Future fire(NetRequest request) async {
-    NetResponse? response;
+  Future fire(JinNetRequest request) async {
+    JinNetResponse? response;
     var error;
     try {
       response = await send(request);
-    } on NetError catch (e) {
+    } on JinNetError catch (e) {
       error = e;
       response = e.data;
       logger.e(e);
@@ -55,7 +56,7 @@ class JinNet {
       default:
       //如果error不为空，则复用现有的error
         hiError =
-            error ?? NetError(status ?? -1, result.toString(), data: result);
+            error ?? JinNetError(status ?? -1, result.toString(), data: result);
         break;
     }
     //交给拦截器处理错误
@@ -65,9 +66,9 @@ class JinNet {
     throw hiError;
   }
 
-  Future<NetResponse<T>> send<T>(NetRequest request) async {
+  Future<JinNetResponse<T>> send<T>(JinNetRequest request) async {
     ///使用Dio发送请求
-    NetAdapter adapter = DioAdapter();
+    JinNetAdapter adapter = DioAdapter();
     return adapter.send(request);
   }
 

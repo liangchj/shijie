@@ -1,10 +1,7 @@
 
-
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lchj_net/jin_net.dart';
+import 'package:jin_net/jin_net.dart';
 import 'package:shijie/http/request/net_resource_home_request.dart';
 import 'package:shijie/model/resource_category_type_model.dart';
 import 'package:shijie/model/resource_model.dart';

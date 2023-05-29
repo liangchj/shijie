@@ -32,7 +32,7 @@ dependencies:
     sdk: flutter
 
   # 组件化配置
-  lchj_net:
+  jin_net:
     path: ./components/jin_net
 
   # The following adds the Cupertino Icons font to your application.
