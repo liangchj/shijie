@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shijie/getx_controller/condition_list_controller.dart';
 import 'package:shijie/model/resource_model.dart';
+import 'package:shijie/pages/video_detail_page.dart';
 import 'package:shijie/widgets/condition_list.dart';
 import 'package:shijie/widgets/resource_item.dart';
 
@@ -87,7 +88,11 @@ class _ResourceCategoryPageState extends State<ResourceCategoryPage> {
                   ),
                   itemCount: _conditionListController.resourceModelList.length,
                   itemBuilder: (context, index) {
-                    return ResourceItem(resourceModel: _conditionListController.resourceModelList[index], width: singleItemWidth, aspectRatio: itemAspectRatio);
+                    return InkWell(
+                        onTap: () {
+                          Get.to(const VideoDetailPage());
+                        },
+                        child: ResourceItem(resourceModel: _conditionListController.resourceModelList[index], width: singleItemWidth, aspectRatio: itemAspectRatio));
                   },
                 ))
                 /*Expanded(child: SingleChildScrollView(

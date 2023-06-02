@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shijie/getx_controller/net_resource_home_controller.dart';
 import 'package:shijie/model/resource_model.dart';
+import 'package:shijie/pages/video_detail_page.dart';
 
 import '../widgets/resource_item.dart';
 
@@ -94,7 +95,11 @@ class NetResourceHomePage extends GetView<NetResourceHomeController>  {
                 EdgeInsetsGeometry padding = EdgeInsets.only(left: index == 0 ? 0 : bodyHorizontalPadding, top: bodyVerticalPadding, right: 0, bottom: bodyVerticalPadding);
                 return Padding(
                   padding: padding,
-                  child: ResourceItem(resourceModel: resourceCategoryList[index], width: singleItemWidth, aspectRatio: itemAspectRatio),
+                  child: InkWell(
+                      onTap: () {
+                        Get.to(const VideoDetailPage());
+                      },
+                      child: ResourceItem(resourceModel: resourceCategoryList[index], width: singleItemWidth, aspectRatio: itemAspectRatio)),
                 );
               },
             ),

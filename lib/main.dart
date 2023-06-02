@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:shijie/http/dao/recommend_dao.dart';
+import 'package:shijie/pages/full_play.dart';
 import 'package:shijie/pages/net_resource_home_page.dart';
 import 'package:shijie/pages/resource_category_page.dart';
+import 'package:shijie/pages/video_detail_page.dart';
 import 'package:shijie/route/app_pages.dart';
 import 'package:shijie/route/app_routes.dart';
 
@@ -41,6 +45,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        // here
+        navigatorObservers: [FlutterSmartDialog.observer],
+        // here
+        builder: FlutterSmartDialog.init(),
     );
   }
 }
@@ -67,13 +75,35 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    Get.toNamed(AppRoutes.netResourceHomePage);
+    // Get.toNamed(AppRoutes.netResourceHomePage);
     // Get.to(ResourceCategoryPage());
+    // Get.to(FullPlay());
+    Get.to(VideoDetailPage());
     // RecommendDao.get();
+    /*SmartDialog.show(
+      alignment: Alignment.centerRight,
+      builder: (_) => Container(
+        color: Colors.cyanAccent,
+        child: Text("右边弹窗"),
+      ),
+    );*/
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
 
   @override
   Widget build(BuildContext context) {
+    print("主页build");
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
