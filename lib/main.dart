@@ -77,11 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     // Get.toNamed(AppRoutes.netResourceHomePage);
     // Get.to(ResourceCategoryPage());
-    // Get.to(FullPlay());
-    Get.to(VideoDetailPage());
+    Get.to(FullPlay(), duration: Duration(seconds: 0));
+    // Get.to(VideoDetailPage(), preventDuplicates: true);
     // RecommendDao.get();
     /*SmartDialog.show(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.bottomCenter,
       builder: (_) => Container(
         color: Colors.cyanAccent,
         child: Text("右边弹窗"),

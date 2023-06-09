@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:jin_video_player/jin_video_player_view.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
+import 'package:shijie/jin_video_player/jin_video_player_view.dart';
 
 class VideoDetailPage extends StatefulWidget {
   const VideoDetailPage({Key? key}) : super(key: key);
@@ -22,9 +24,28 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             color: Colors.cyanAccent,
             padding: const EdgeInsets.only(top: 10.0),
             height: 50,
-          )
+          ),
+
+          TextButton(onPressed: () {
+            Get.dialog(
+              Stack(
+                children: [
+                  Align(
+              alignment: Alignment.centerRight,
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.cyanAccent,
+                    ),
+                  )
+                ],
+              )
+            );
+          }, child: Text("弹窗2")),
         ],
       ),
     );
   }
+
+
 }

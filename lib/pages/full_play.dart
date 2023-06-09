@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:jin_video_player/jin_video_player_view.dart';
+import 'package:shijie/jin_video_player/jin_video_player_view.dart';
 
 class FullPlay extends StatefulWidget {
   const FullPlay({Key? key}) : super(key: key);
