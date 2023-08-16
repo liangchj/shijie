@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shijie/cache/mmkv_cache.dart';
 import 'package:shijie/http/dao/recommend_dao.dart';
 import 'package:shijie/pages/full_play.dart';
 import 'package:shijie/pages/net_resource_home_page.dart';
@@ -9,11 +11,21 @@ import 'package:shijie/pages/resource_category_page.dart';
 import 'package:shijie/pages/video_detail_page.dart';
 import 'package:shijie/route/app_pages.dart';
 import 'package:shijie/route/app_routes.dart';
+import 'package:shijie/shi_jie_app.dart';
+import 'package:shijie/test_get_net_html.dart';
+import 'package:shijie/test_player.dart';
+import 'package:shijie/utils/permission_utils.dart';
+import 'package:shijie/web_view_page.dart';
+
+import 'dan_page.dart';
+import 'test_ui.dart';
 
 void main() {
+  MMKVCacheInit.preInit();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(GetMaterialApp(
     getPages: AppPages.pages,
-    home: const MyApp(),
+    home: const ShiJieApp(),
   ));
 }
 
@@ -26,21 +38,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -56,28 +53,26 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   int _counter = 0;
+  /// 是否已经申请权限
+  bool _requestPermission = false;
 
   void _incrementCounter() {
     // Get.toNamed(AppRoutes.netResourceHomePage);
     // Get.to(ResourceCategoryPage());
-    Get.to(FullPlay(), duration: Duration(seconds: 0));
+    // Get.to(FullPlay(), duration: Duration(seconds: 0));
+    // Get.to(DanPage());
+    Get.to(TestPlayer());
+    // Get.to(WebViewPage());
+    // Get.to(TestGetHtml());
+    // Get.to(const TestUI());
     // Get.to(VideoDetailPage(), preventDuplicates: true);
     // RecommendDao.get();
     /*SmartDialog.show(
@@ -93,6 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    //2.页面初始化的时候，添加一个状态的监听者
+    WidgetsBinding.instance.addObserver(this);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -102,7 +99,51 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    //3. 页面销毁时，移出监听者
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  //监听程序进入前后台的状态改变的方法
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+    //进入应用时候不会触发该状态 应用程序处于可见状态，并且可以响应用户的输入事件。它相当于 Android 中Activity的onResume
+      case AppLifecycleState.resumed:
+        print("应用进入前台======");
+        break;
+    //应用状态处于闲置状态，并且没有用户的输入事件，
+    // 注意：这个状态切换到 前后台 会触发，所以流程应该是先冻结窗口，然后停止UI
+      case AppLifecycleState.inactive:
+        print("应用处于闲置状态，这种状态的应用应该假设他们可能在任何时候暂停 切换到后台会触发======");
+        break;
+    //当前页面即将退出
+      case AppLifecycleState.detached:
+        print("当前页面即将退出======");
+        break;
+    // 应用程序处于不可见状态
+      case AppLifecycleState.paused:
+        print("应用处于不可见状态 后台======");
+        break;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    /*if (!_requestPermission) {
+      // List<Permission> permissionList = [Permission.storage, Permission.manageExternalStorage];
+      List<Permission> permissionList = [Permission.storage, Permission.manageExternalStorage];
+      PermissionUtils.checkPermission(permissionList: permissionList, onPermissionCallback: (flag) {
+        print("flag: $flag");
+        setState((){
+          _requestPermission = flag;
+        });
+      });
+    }*/
     print("主页build");
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.

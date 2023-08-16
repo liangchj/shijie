@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:shijie/jin_video_player/jin_video_player_view.dart';
 
 class VideoDetailPage extends StatefulWidget {
   const VideoDetailPage({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       body: Column(
         children: [
           Padding(padding: EdgeInsets.only(top: 48)),
-          JinVideoPlayerView(videoUrl: videoUrl, fullScreenPlay: false, autoPlay: false),
+          // JinVideoPlayerView(videoUrl: videoUrl, fullScreenPlay: false, autoPlay: false),
           Container(
             color: Colors.cyanAccent,
             padding: const EdgeInsets.only(top: 10.0),

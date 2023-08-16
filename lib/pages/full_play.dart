@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:shijie/jin_video_player/jin_video_player_view.dart';
 
 class FullPlay extends StatefulWidget {
   const FullPlay({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class _FullPlayState extends State<FullPlay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: JinVideoPlayerView(videoUrl: videoUrl, fullScreenPlay: true, autoPlay: false),
+      // body: JinVideoPlayerView(videoUrl: videoUrl, fullScreenPlay: true, autoPlay: false),
     );
   }
 }

@@ -48,8 +48,8 @@ android {
         applicationId "com.lchj.shijie"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 23
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -61,6 +61,16 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    dependencies {
+        modules {
+            module("com.tencent:mmkv-static") {
+                replacedBy("com.tencent:mmkv", "Using mmkv for flutter")
+            }
+            module("com.tencent:mmkv-shared") {
+                replacedBy("com.tencent:mmkv", "Using mmkv for flutter")
+            }
+        }
+    }
 }
 
 flutter {
@@ -69,4 +79,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.code.gson:gson:2.10.1'
+
 }

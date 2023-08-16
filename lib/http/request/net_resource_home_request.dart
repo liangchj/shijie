@@ -17,6 +17,8 @@ class NetResourceHomeRequest extends JinNetRequest {
   late HttpMethod method;
   late String urlPath;
 
+  String? baseUrl;
+
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;
@@ -30,6 +32,15 @@ class NetResourceHomeRequest extends JinNetRequest {
   @override
   String path() {
     return urlPath;
+  }
+
+  @override
+  String authority() {
+    return baseUrl ?? super.authority();
+  }
+
+  void setBaseUrl(String url) {
+    baseUrl = url;
   }
 
 }

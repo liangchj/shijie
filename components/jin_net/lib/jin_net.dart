@@ -41,6 +41,7 @@ class JinNet {
       logger.e(e);
     }
     var data = response?.data;
+    logger.e(data);
     var result = jsonDecode(data);
     var status = response?.statusCode;
     var hiError;

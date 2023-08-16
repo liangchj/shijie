@@ -17,4 +17,5 @@ abstract class BaseRequest extends JinNetRequest {
     // HiConstants.authTokenK: HiConstants.authTokenV,
     // HiConstants.courseFlagK: HiConstants.courseFlagV
   };
+
 }
