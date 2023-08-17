@@ -1,6 +1,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:volume_controller/volume_controller.dart';
@@ -25,6 +26,8 @@ class PlayerGetxController extends GetxController {
   late DanmakuParams danmakuParams;
 
   Timer? _hideTimer;
+
+  bool rotateScreenIng = false;
 
   @override
   void onInit() {
@@ -68,7 +71,6 @@ class PlayerGetxController extends GetxController {
     String? cover,
     bool? autoPlay,
     bool? looping,
-    bool? fullScreenPlay,
     bool? onlyFullScreen,
     double? aspectRatio,
   }) {
@@ -84,9 +86,6 @@ class PlayerGetxController extends GetxController {
     }
     if (aspectRatio != null) {
       playerParams.aspectRatio = aspectRatio;
-    }
-    if (fullScreenPlay != null) {
-      playerParams.fullScreenPlay = fullScreenPlay;
     }
     if (onlyFullScreen != null) {
       playerParams.onlyFullScreen = onlyFullScreen;
@@ -398,10 +397,34 @@ class PlayerGetxController extends GetxController {
   }
 
 
-  void entryOrExitFullScreen() {
+  Future<void> entryOrExitFullScreen() async {
     if (playerParams.fullScreenPlay) {
+      rotateScreenIng = true;
+      cancelHideTimer();
+      hideAllUI();
+
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+
+      playerParams.fullScreenPlay = true;
+      update([GetxUpdateId.videoPlayer]);
       Get.to(const HorizontalScreenVideoPlayerView());
     } else {
+      rotateScreenIng = true;
+      cancelHideTimer();
+      hideAllUI();
+
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+          overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+      playerParams.fullScreenPlay = false;
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+      update([GetxUpdateId.videoPlayer]);
       Get.back();
     }
   }

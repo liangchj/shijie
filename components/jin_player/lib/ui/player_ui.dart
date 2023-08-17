@@ -23,54 +23,57 @@ class _PlayerUIState extends State<PlayerUI> {
     // TODO: implement initState
     super.initState();
     // _playerGetxController = Get.put(PlayerGetxController());
-    print("player ui 初始化");
-    _playerGetxController.cancelAndRestartTimer();
+    if (!_playerGetxController.rotateScreenIng) {
+      _playerGetxController.cancelAndRestartTimer();
+    }
   }
 
   @override
   void dispose() {
-    print("player ui 销毁");
     // TODO: implement dispose
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () => _playerGetxController.toggleBackground(),
-      onHorizontalDragStart: (DragStartDetails details) {
-        print(
-            "滑动屏幕 开始拖动 横向: $details, ${details.globalPosition}, ${details.localPosition}, ${context.size}");
-        _playerGetxController.playProgressOnHorizontalDragStart();
-      },
-      onHorizontalDragUpdate: (DragUpdateDetails details) {
-        print(
-            "滑动屏幕 拖动中 横向: $details, ${details.globalPosition}, ${details.localPosition}, ${details.delta}");
-        _playerGetxController.playProgressOnHorizontalDragUpdate(
-            context, details.delta);
-      },
-      onHorizontalDragEnd: (DragEndDetails details) {
-        print("滑动屏幕 拖动结束 横向: $details");
-        _playerGetxController.playProgressOnHorizontalDragEnd();
-      },
-      onVerticalDragStart: (DragStartDetails details) {
-        print(
-            "滑动屏幕 开始拖动 纵向: $details, ${details.globalPosition}, ${details.localPosition}");
-        _playerGetxController
-            .volumeOrBrightnessOnVerticalDragStart(details);
-      },
-      onVerticalDragUpdate: (DragUpdateDetails details) {
-        print(
-            "滑动屏幕 拖动中 纵向: $details, ${details.globalPosition}, ${details.localPosition}, ${details.delta}");
-        _playerGetxController.volumeOrBrightnessOnVerticalDragUpdate(
-            context, details);
-      },
-      onVerticalDragEnd: (DragEndDetails details) {
-        print("滑动屏幕 拖动结束 纵向: $details");
-        _playerGetxController.volumeOrBrightnessOnVerticalDragEnd();
-      },
-      child: _playerGetxController.playerParams.fullScreenPlay ? const HorizontalScreenUI() : const VerticalScreenUI(),
+    return Scaffold(
+      backgroundColor: Colors.white.withOpacity(0),
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => _playerGetxController.toggleBackground(),
+        onHorizontalDragStart: (DragStartDetails details) {
+          print(
+              "滑动屏幕 开始拖动 横向: $details, ${details.globalPosition}, ${details.localPosition}, ${context.size}");
+          _playerGetxController.playProgressOnHorizontalDragStart();
+        },
+        onHorizontalDragUpdate: (DragUpdateDetails details) {
+          print(
+              "滑动屏幕 拖动中 横向: $details, ${details.globalPosition}, ${details.localPosition}, ${details.delta}");
+          _playerGetxController.playProgressOnHorizontalDragUpdate(
+              context, details.delta);
+        },
+        onHorizontalDragEnd: (DragEndDetails details) {
+          print("滑动屏幕 拖动结束 横向: $details");
+          _playerGetxController.playProgressOnHorizontalDragEnd();
+        },
+        onVerticalDragStart: (DragStartDetails details) {
+          print(
+              "滑动屏幕 开始拖动 纵向: $details, ${details.globalPosition}, ${details.localPosition}");
+          _playerGetxController
+              .volumeOrBrightnessOnVerticalDragStart(details);
+        },
+        onVerticalDragUpdate: (DragUpdateDetails details) {
+          print(
+              "滑动屏幕 拖动中 纵向: $details, ${details.globalPosition}, ${details.localPosition}, ${details.delta}");
+          _playerGetxController.volumeOrBrightnessOnVerticalDragUpdate(
+              context, details);
+        },
+        onVerticalDragEnd: (DragEndDetails details) {
+          print("滑动屏幕 拖动结束 纵向: $details");
+          _playerGetxController.volumeOrBrightnessOnVerticalDragEnd();
+        },
+        child: _playerGetxController.playerParams.fullScreenPlay ? const HorizontalScreenUI() : const VerticalScreenUI(),
+      ),
     );
   }
 }
@@ -97,9 +100,10 @@ class _VerticalScreenUIState extends State<VerticalScreenUI> {
           child: GestureDetector(
               onTap: () {
                 print("点击了顶部UI");
-                if (_playerGetxController.playerUIParams.showTopUI) {
+                /*if (_playerGetxController.playerUIParams.showTopUI) {
                   _playerGetxController.cancelAndRestartTimer();
-                }
+                }*/
+                _playerGetxController.cancelAndRestartTimer();
               },
               child: const PlayerTopUI()
           ),

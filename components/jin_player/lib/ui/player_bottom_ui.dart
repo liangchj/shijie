@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../config/getx_update_id.dart';
 import '../controller/player_controller.dart';
 import '../data/ui_data.dart';
-import '../jin_player_view.dart';
 import '../utils/format_utils.dart';
 import '../utils/my_icons_utils.dart';
 import 'danmaku_setting_ui.dart';

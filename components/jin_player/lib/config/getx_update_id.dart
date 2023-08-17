@@ -1,5 +1,6 @@
 
 abstract class GetxUpdateId {
+  static String videoPlayer = "videoPlayer";
   static String topBarUI = "topBarUI";
   static String centerUI = "centerUI";
   static String bottomBarUI = "bottomBarUI";

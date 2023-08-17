@@ -21,11 +21,17 @@ import 'dan_page.dart';
 import 'test_ui.dart';
 
 void main() {
-  MMKVCacheInit.preInit();
+  /*MMKVCacheInit.preInit();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(GetMaterialApp(
     getPages: AppPages.pages,
     home: const ShiJieApp(),
+  ));*/
+  MMKVCacheInit.preInit();
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(GetMaterialApp(
+    getPages: AppPages.pages,
+    home: const MyApp(),
   ));
 }
 
@@ -69,10 +75,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     // Get.to(ResourceCategoryPage());
     // Get.to(FullPlay(), duration: Duration(seconds: 0));
     // Get.to(DanPage());
-    Get.to(TestPlayer());
     // Get.to(WebViewPage());
     // Get.to(TestGetHtml());
-    // Get.to(const TestUI());
+    Get.to(const TestUI());
+    // Get.to(const TestPlayer());
     // Get.to(VideoDetailPage(), preventDuplicates: true);
     // RecommendDao.get();
     /*SmartDialog.show(
