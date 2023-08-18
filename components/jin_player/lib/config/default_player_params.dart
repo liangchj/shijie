@@ -22,6 +22,9 @@ class DefaultDanmakuParams {
   static int danmakuAlphaRatio = 100; // 不透明度
   // 显示区域["1/4屏", "半屏", "3/4屏", "不重叠", "无限"]，选择下标，默认半屏（下标1）
   static int danmakuDisplayAreaIndex = 1; // 显示区域
+  // DanmakuViewType 为bili弹幕库时使用
+  static List<double> danmakuDisplayAreaList = <double>[0.25, 0.5, 0.75, 1.0, 1.0];
+
   // 区间[20, 100]， 默认20
   static int danmakuFontSizeRatio = 80;
   // 弹幕播放速度["极慢", "较慢", "正常", "较快", "极快"], 选择许下标， 默认正常（下标2）

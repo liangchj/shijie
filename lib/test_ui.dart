@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jin_bili_danmaku/jin_bili_danmaku_view.dart';
+import 'package:jin_player/control_method/abstract_method.dart';
 import 'package:jin_player/jin_player_view.dart';
 import 'package:jin_player/ui/player_ui.dart';
 import 'package:jin_player/jin_player_view.dart';
@@ -48,7 +49,12 @@ class _TestUIState extends State<TestUI> {
           color: Colors.cyan,
           margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
           // child: JinPlayerView(videoUrl: videoUrl, autoPlay: false, onlyFullScreen: false,)),
-          child: JinPlayerView(videoUrl: videoUrl, autoPlay: false, onlyFullScreen: false, danmakuUI: JinBiliDanmakuView(danmakuUrl: "/storage/emulated/0/DCIM/1.xml", onViewCreated: _onCustomAndroidViewCreated,),)),
+          child: JinPlayerView(videoUrl: videoUrl, autoPlay: false, onlyFullScreen: false, danmakuFn: (danmakuEnum) {
+            if (danmakuEnum == DanmakuEnum.createDanmakuView) {
+              return Container();
+            }
+          },)),
+          // child: JinPlayerView(videoUrl: videoUrl, autoPlay: false, onlyFullScreen: false, danmakuUI: JinBiliDanmakuView(danmakuUrl: "/storage/emulated/0/DCIM/1.xml", onViewCreated: _onCustomAndroidViewCreated,),)),
     );
   }
 }

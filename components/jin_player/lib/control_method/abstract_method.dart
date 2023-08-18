@@ -11,6 +11,27 @@ abstract class IDanmakuMethod {
   Function danmakuSeekTo(); // 弹幕跳转
 }
 
+enum DanmakuEnum {
+  createDanmakuView,
+  sendDanmaku,
+  startDanmaku,
+  pauseDanmaKu,
+  resumeDanmaku,
+  danmakuSeekTo,
+  setDanmaKuVisibility,
+  setDanmakuAlphaRatio,
+  setDanmakuDisplayArea,
+  setDanmakuScaleTextSize,
+  setDanmakuSpeed,
+  setDuplicateMergingEnabled,
+  setFixedTopDanmakuVisibility,
+  setRollDanmakuVisibility,
+  setFixedBottomDanmakuVisibility,
+  setSpecialDanmakuVisibility,
+  setColorsDanmakuVisibility,
+
+}
+
 abstract class IPlayerMethod {
   Function setDanmakuSettingUI();
   Function setDanmakuSourceSettingUI();

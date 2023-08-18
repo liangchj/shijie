@@ -16,13 +16,11 @@ class PlayerUI extends StatefulWidget {
 }
 
 class _PlayerUIState extends State<PlayerUI> {
-  // late PlayerGetxController _playerGetxController ;
   final PlayerGetxController _playerGetxController = Get.find<PlayerGetxController>();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _playerGetxController = Get.put(PlayerGetxController());
     if (!_playerGetxController.rotateScreenIng) {
       _playerGetxController.cancelAndRestartTimer();
     }
@@ -99,10 +97,6 @@ class _VerticalScreenUIState extends State<VerticalScreenUI> {
           top: 0,
           child: GestureDetector(
               onTap: () {
-                print("点击了顶部UI");
-                /*if (_playerGetxController.playerUIParams.showTopUI) {
-                  _playerGetxController.cancelAndRestartTimer();
-                }*/
                 _playerGetxController.cancelAndRestartTimer();
               },
               child: const PlayerTopUI()

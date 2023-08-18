@@ -23,6 +23,7 @@ abstract class GetxUpdateId {
   static String playSpeedSetting = "playSpeedSetting";
 
 
+
   static String showDanmakuBtn = "showDanmakuBtn";
   static String danmakuSetting = "danmakuSetting";
   static String danmakuSpeedSetting = "danmakuSpeedSetting";

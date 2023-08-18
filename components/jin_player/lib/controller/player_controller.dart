@@ -11,12 +11,14 @@ import '../config/getx_update_id.dart';
 import '../config/player_params.dart';
 import '../config/player_ui_params.dart';
 import '../config/video_info_params.dart';
+import '../control_method/abstract_method.dart';
 import '../control_method/abstract_player_method.dart';
 import '../data/ui_data.dart';
 import '../jin_player_view.dart';
 import '../ui/brightness_ui.dart';
 import '../ui/drag_play_progress_ui.dart';
 import '../ui/volume_ui.dart';
+import 'danmaku_control.dart';
 
 class PlayerGetxController extends GetxController {
   late IVideoPlayerMethod videoPlayerMethod;
@@ -24,6 +26,9 @@ class PlayerGetxController extends GetxController {
   late PlayerUIParams playerUIParams;
   late VideoInfoParams videoInfoParams;
   late DanmakuParams danmakuParams;
+  late DanmakuControl danmakuControl;
+
+  Function(DanmakuEnum danmakuEnum, {dynamic params})? danmakuFn;
 
   Timer? _hideTimer;
 
@@ -44,6 +49,8 @@ class PlayerGetxController extends GetxController {
     VolumeController().listener((volume) => listenerSystemVolume);
 
     ScreenBrightness().current.then((value) => playerParams.brightness = (value * 100).floor());
+
+    danmakuControl = DanmakuControl(this);
   }
 
   /// 监听系统音量
@@ -73,6 +80,7 @@ class PlayerGetxController extends GetxController {
     bool? looping,
     bool? onlyFullScreen,
     double? aspectRatio,
+    Function(DanmakuEnum)? danmakuFn
   }) {
     videoInfoParams.videoUrl = videoUrl;
     if (cover != null) {
@@ -95,6 +103,13 @@ class PlayerGetxController extends GetxController {
     } else {
       playerParams.onlyFullScreen = playerParams.fullScreenPlay;
     }
+
+    if (danmakuFn != null) {
+      this.danmakuFn = danmakuFn;
+    }
+
+    danmakuControl.clearDanmakuUI();
+    // danmakuParams.danmakuUrl = DanmakuMMKVCache.getInstance().getString(CacheConstant.cachePrev + videoUrl) ?? "";
   }
   @override
   void onClose() {
@@ -176,6 +191,7 @@ class PlayerGetxController extends GetxController {
   Future<void> play() async {
     videoPlayerMethod.play().then((value) {
       playerParams.isPlaying = true;
+      danmakuControl.startDanmaku();
       update([GetxUpdateId.playPauseBtn]);
     });
   }
