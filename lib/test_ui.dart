@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:jin_bili_danmaku/jin_bili_danmaku_view.dart';
 import 'package:jin_player/control_method/abstract_method.dart';
 import 'package:jin_player/jin_player_view.dart';
+import 'package:jin_player/jin_video_player_view.dart';
 import 'package:jin_player/ui/player_ui.dart';
 import 'package:jin_player/jin_player_view.dart';
 
@@ -33,6 +34,7 @@ class _TestUIState extends State<TestUI> {
       print('来自Android的数据：$data');
     });
   }
+  final Key danmakuKey = const Key("bili_danmaku_key");
   @override
   Widget build(BuildContext context) {
     /*return Scaffold(
@@ -48,10 +50,15 @@ class _TestUIState extends State<TestUI> {
       body: Container(
           color: Colors.cyan,
           margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          /*child: JinVideoPlayerView(children: [
+            Container(key: JinVideoPlayerView.playerKey, width: 100, height: 15, color: Colors.blue,),
+            Text("文字")
+          ],)),*/
           // child: JinPlayerView(videoUrl: videoUrl, autoPlay: false, onlyFullScreen: false,)),
-          child: JinPlayerView(videoUrl: videoUrl, autoPlay: false, onlyFullScreen: false, danmakuFn: (danmakuEnum) {
+          child: JinPlayerView(videoUrl: videoUrl, autoPlay: false, onlyFullScreen: false, danmakuFn: (danmakuEnum,
+              {params}) {
             if (danmakuEnum == DanmakuEnum.createDanmakuView) {
-              return Container();
+              return JinBiliDanmakuView(key: danmakuKey, danmakuUrl: "/storage/emulated/0/DCIM/1.xml", onViewCreated: _onCustomAndroidViewCreated, extendParams: params);
             }
           },)),
           // child: JinPlayerView(videoUrl: videoUrl, autoPlay: false, onlyFullScreen: false, danmakuUI: JinBiliDanmakuView(danmakuUrl: "/storage/emulated/0/DCIM/1.xml", onViewCreated: _onCustomAndroidViewCreated,),)),

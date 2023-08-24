@@ -80,7 +80,7 @@ class PlayerGetxController extends GetxController {
     bool? looping,
     bool? onlyFullScreen,
     double? aspectRatio,
-    Function(DanmakuEnum)? danmakuFn
+    Function(DanmakuEnum danmakuEnum, {dynamic params})? danmakuFn
   }) {
     videoInfoParams.videoUrl = videoUrl;
     if (cover != null) {
@@ -128,7 +128,7 @@ class PlayerGetxController extends GetxController {
     videoPlayerMethod = method;
     videoPlayerMethod.onInitPlayer().then((value) {
       if (playerParams.autoPlay) {
-        play();
+        // play();
       }
     });
   }
@@ -189,11 +189,12 @@ class PlayerGetxController extends GetxController {
 
   /// 播放
   Future<void> play() async {
-    videoPlayerMethod.play().then((value) {
+    /*videoPlayerMethod.play().then((value) {
       playerParams.isPlaying = true;
       danmakuControl.startDanmaku();
       update([GetxUpdateId.playPauseBtn]);
-    });
+    });*/
+    danmakuControl.startDanmaku();
   }
 
   /// 暂停
@@ -423,11 +424,13 @@ class PlayerGetxController extends GetxController {
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
         DeviceOrientation.landscapeRight,
-      ]);
+      ]).then((value) {
+        playerParams.fullScreenPlay = true;
+        update([GetxUpdateId.videoPlayer, GetxUpdateId.showDanmakuBtn]);
+        Get.to(const HorizontalScreenVideoPlayerView());
+      });
 
-      playerParams.fullScreenPlay = true;
-      update([GetxUpdateId.videoPlayer]);
-      Get.to(const HorizontalScreenVideoPlayerView());
+
     } else {
       rotateScreenIng = true;
       cancelHideTimer();
@@ -435,13 +438,16 @@ class PlayerGetxController extends GetxController {
 
       await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
           overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
-      playerParams.fullScreenPlay = false;
+
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
-      ]);
-      update([GetxUpdateId.videoPlayer]);
-      Get.back();
+      ]).then((value) {
+        playerParams.fullScreenPlay = false;
+            update([GetxUpdateId.videoPlayer, GetxUpdateId.showDanmakuBtn]);
+        Get.back();
+      });
+
     }
   }
 }

@@ -5,9 +5,11 @@ import '../control_method/abstract_method.dart';
 import 'default_player_params.dart';
 
 class DanmakuParams {
+  GlobalKey danmakuKey = GlobalKey();
   String? danmakuUrl; // 弹幕地址
   Widget? danmakuUI;
   bool showDanmaku = false;
+  bool danmakuPlay = false;
   Function? showDanmakuSetting; // 显示弹幕设置方法
   Function? showDanmakuSourceSetting; // 显示设置弹幕源
 

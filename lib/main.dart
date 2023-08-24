@@ -14,6 +14,7 @@ import 'package:shijie/route/app_routes.dart';
 import 'package:shijie/shi_jie_app.dart';
 import 'package:shijie/test_get_net_html.dart';
 import 'package:shijie/test_player.dart';
+import 'package:shijie/test_share.dart';
 import 'package:shijie/utils/permission_utils.dart';
 import 'package:shijie/web_view_page.dart';
 
@@ -78,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     // Get.to(WebViewPage());
     // Get.to(TestGetHtml());
     Get.to(const TestUI());
+    // Get.to(const TestShare());
     // Get.to(const TestPlayer());
     // Get.to(VideoDetailPage(), preventDuplicates: true);
     // RecommendDao.get();
@@ -140,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    /*if (!_requestPermission) {
+    if (!_requestPermission) {
       // List<Permission> permissionList = [Permission.storage, Permission.manageExternalStorage];
       List<Permission> permissionList = [Permission.storage, Permission.manageExternalStorage];
       PermissionUtils.checkPermission(permissionList: permissionList, onPermissionCallback: (flag) {
@@ -149,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           _requestPermission = flag;
         });
       });
-    }*/
+    }
     print("主页build");
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.

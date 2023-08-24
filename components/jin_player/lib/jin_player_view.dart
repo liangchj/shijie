@@ -35,7 +35,7 @@ class JinPlayerView extends StatefulWidget {
   State<JinPlayerView> createState() => _JinPlayerViewState();
 }
 
-class _JinPlayerViewState extends State<JinPlayerView> {
+class _JinPlayerViewState extends State<JinPlayerView> with AutomaticKeepAliveClientMixin {
   late PlayerGetxController _playerGetxController;
 
   @override
@@ -67,6 +67,10 @@ class _JinPlayerViewState extends State<JinPlayerView> {
     const HorizontalScreenVideoPlayerView()
     : const VerticalScreenVideoPlayerView());
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class VerticalScreenVideoPlayerView extends StatefulWidget {
@@ -84,7 +88,8 @@ class _VerticalScreenVideoPlayerViewState extends State<VerticalScreenVideoPlaye
         builder: (playerGetxController) {
           return OrientationBuilder(
               builder: (BuildContext context, Orientation orientation) {
-                if (orientation != Orientation.portrait) {
+                Size size = MediaQuery.of(context).size;
+                if (orientation != Orientation.portrait || size.width > size.height) {
                   playerGetxController.rotateScreenIng = true;
                   return Container();
                 }
@@ -97,11 +102,12 @@ class _VerticalScreenVideoPlayerViewState extends State<VerticalScreenVideoPlaye
                     color: Colors.grey,
                     child: Stack(
                       children: [
-                        playerGetxController.playerParams.playerView?? Container(),
+                        Center(child: playerGetxController.playerParams.playerView?? Container()),
                         GetBuilder<PlayerGetxController>(
                             id: GetxUpdateId.showDanmakuBtn,
                             builder: (_) {
                               return FractionallySizedBox(
+                                key: _.danmakuParams.danmakuKey,
                                 widthFactor: 1.0,
                                 heightFactor: _.danmakuParams.danmakuDisplayAreaList[_.danmakuParams.danmakuDisplayAreaIndex],
                                 child: _.danmakuParams.danmakuUI,
@@ -151,42 +157,45 @@ class _HorizontalScreenVideoPlayerViewState extends State<HorizontalScreenVideoP
             },
             child: OrientationBuilder(
               builder: (BuildContext context, Orientation orientation) {
-                if (orientation != Orientation.landscape) {
+                Size size = MediaQuery.of(context).size;
+                if (orientation != Orientation.landscape || size.height > size.width) {
                   playerGetxController.rotateScreenIng = true;
                   return Container();
                 }
                 playerGetxController.rotateScreenIng = false;
                 Future.delayed(const Duration(microseconds: 60)).then((value) => playerGetxController.cancelAndRestartTimer());
                 return Scaffold(
-                  body: AspectRatio(
-                    aspectRatio:
-                    orientation == Orientation.landscape
-                        ? playerGetxController
-                        .playerParams.aspectRatio
-                        : 1 /
-                        playerGetxController
-                            .playerParams.aspectRatio,
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: Container(
+                  body: Center(
+                    child: AspectRatio(
+                      aspectRatio:
+                      orientation == Orientation.landscape
+                          ? playerGetxController
+                          .playerParams.aspectRatio
+                          : 1 /
+                          playerGetxController
+                              .playerParams.aspectRatio,
+                      child: Stack(
+                        children: [
+                          Container(
                             color: Colors.grey,
+                            width: double.infinity,
                             child: playerGetxController
                                 .playerParams.playerView,
                           ),
-                        ),
-                        GetBuilder<PlayerGetxController>(
-                            id: GetxUpdateId.showDanmakuBtn,
-                            builder: (_) {
-                              return FractionallySizedBox(
-                                widthFactor: 1.0,
-                                heightFactor: _.danmakuParams.danmakuDisplayAreaList[_.danmakuParams.danmakuDisplayAreaIndex],
-                                child: _.danmakuParams.danmakuUI,
-                              );
-                            }),
-                        if (playerGetxController.playerParams.fullScreenPlay && !playerGetxController.rotateScreenIng)
-                          const Positioned.fill(child: PlayerUI())
-                      ],
+                          GetBuilder<PlayerGetxController>(
+                              id: GetxUpdateId.showDanmakuBtn,
+                              builder: (_) {
+                                return FractionallySizedBox(
+                                  key: _.danmakuParams.danmakuKey,
+                                  widthFactor: 1.0,
+                                  heightFactor: _.danmakuParams.danmakuDisplayAreaList[_.danmakuParams.danmakuDisplayAreaIndex],
+                                  child: _.danmakuParams.danmakuUI,
+                                );
+                              }),
+                          if (playerGetxController.playerParams.fullScreenPlay && !playerGetxController.rotateScreenIng)
+                            const Positioned.fill(child: PlayerUI())
+                        ],
+                      ),
                     ),
                   ),
                 );
